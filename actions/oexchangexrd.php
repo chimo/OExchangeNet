@@ -1,5 +1,5 @@
 <?php
-if (!defined('STATUSNET')) {
+if (!defined('GNUSOCIAL')) {
   exit(1);
 }
 
@@ -57,7 +57,7 @@ class OExchangeXrdAction extends Action
 
     <Property type="http://www.oexchange.org/spec/0.8/prop/vendor"><?php echo common_config('site', 'broughtby'); ?></Property>
     <Property type="http://www.oexchange.org/spec/0.8/prop/title"><?php echo common_config('site', 'name'); ?></Property>
-    <Property type="http://www.oexchange.org/spec/0.8/prop/name">StatusNet Version <?php echo STATUSNET_VERSION; ?></Property>
+    <Property type="http://www.oexchange.org/spec/0.8/prop/name">GNU social Version <?php echo GNUSOCIAL_VERSION; ?></Property>
     <Property type="http://www.oexchange.org/spec/0.8/prop/prompt">Share with your "<?php echo common_config('site', 'name'); ?>" network!</Property>
 
     <Link rel="icon" href="<?php echo $icon; ?>" type="image/png" />
