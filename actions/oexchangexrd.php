@@ -7,64 +7,56 @@ if (!defined('GNUSOCIAL')) {
  * @package OExchangePlugin
  * @author Matthias Pfefferle <pfefferle@pfefferle.status.net>
  */
-class OExchangeXrdAction extends Action
+class OExchangeXrdAction extends XrdAction
 {
-  /**
-   * Is read only?
-   *
-   * @return boolean true
-   */
-  function isReadOnly()
-  {
-    return true;
-  }
+  private $sharelink;
+  private $icon;
+  private $icon32;
 
   /**
    * Handle the request
    *
    * @param array $args $_REQUEST data (unused)
    * @return void
-   * @todo implement XRD class if it supports <properties />
    */
   function handle()
   {
-    parent::handle();
-
     $domain = common_config('site', 'server');
     if (class_exists("BookmarkPlugin")) {
-      $sharelink = common_local_url('bookmarkpopup');
+      $this->sharelink = common_local_url('bookmarkpopup');
     } else {
-      $sharelink = common_local_url('oexchangeoffer');
+      $this->sharelink = common_local_url('oexchangeoffer');
     }
 
     if (defined('OEXCHANGE_ICON')) {
-      $icon = OEXCHANGE_ICON;
+      $this->icon = OEXCHANGE_ICON;
     } else {
-      $icon = common_path('plugins/OExchange/images/icon.png');
+      $this->icon = common_path('plugins/OExchange/images/icon.png');
     }
 
     if (defined('OEXCHANGE_ICON32')) {
-      $icon32 = OEXCHANGE_ICON32;
+      $this->icon32 = OEXCHANGE_ICON32;
     } else {
-      $icon32 = common_path('plugins/OExchange/images/icon32.png');
+      $this->icon32 = common_path('plugins/OExchange/images/icon32.png');
     }
 
-    header('Content-type: application/xrd+xml');
-?>
-<?xml version='1.0' encoding='UTF-8'?>
-<XRD xmlns="http://docs.oasis-open.org/ns/xri/xrd-1.0">
-    <Subject><?php echo common_local_url('newnotice'); ?></Subject>
+    parent::handle();
+  }
 
-    <Property type="http://www.oexchange.org/spec/0.8/prop/vendor"><?php echo common_config('site', 'broughtby'); ?></Property>
-    <Property type="http://www.oexchange.org/spec/0.8/prop/title"><?php echo common_config('site', 'name'); ?></Property>
-    <Property type="http://www.oexchange.org/spec/0.8/prop/name">GNU social Version <?php echo GNUSOCIAL_VERSION; ?></Property>
-    <Property type="http://www.oexchange.org/spec/0.8/prop/prompt">Share with your "<?php echo common_config('site', 'name'); ?>" network!</Property>
+  protected function setXRD()
+  {
+     // Subject
+     $this->xrd->subject = common_local_url('newnotice');
 
-    <Link rel="icon" href="<?php echo $icon; ?>" type="image/png" />
-    <Link rel="icon32" href="<?php echo $icon32; ?>" type="image/png" />
+     // Properties
+     $this->xrd->properties[] = new XML_XRD_Element_Property('http://www.oexchange.org/spec/0.8/prop/vendor', common_config('site', 'broughtby'));
+     $this->xrd->properties[] = new XML_XRD_Element_Property('http://www.oexchange.org/spec/0.8/prop/title', common_config('site', 'name'));
+     $this->xrd->properties[] = new XML_XRD_Element_Property('http://www.oexchange.org/spec/0.8/prop/name', 'GNU social Version ' . GNUSOCIAL_VERSION);
+     $this->xrd->properties[] = new XML_XRD_Element_Property('http://www.oexchange.org/spec/0.8/prop/prompt', 'Share with your ' . common_config('site', 'name') . ' network!');
 
-    <Link rel="http://www.oexchange.org/spec/0.8/rel/offer" href="<?php echo $sharelink; ?>" type="text/html" />
-</XRD>
-<?php
+     // Links
+     $this->xrd->links[] = new XML_XRD_Element_Link('icon', $this->icon, 'image/png');
+     $this->xrd->links[] = new XML_XRD_Element_Link('icon32', $this->icon32, 'image/png');
+     $this->xrd->links[] = new XML_XRD_Element_Link('http://www.oexchange.org/spec/0.8/rel/offer', $this->sharelink, 'text/html');
   }
 }

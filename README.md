@@ -1,4 +1,4 @@
-OExchangeNet
+OExchange
 ============
 
 An OExchange Plugin for GNU social
