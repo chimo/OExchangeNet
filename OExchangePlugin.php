@@ -32,12 +32,12 @@ class OExchangePlugin extends Plugin
      * @param array $links
      * @return boolean hook return
      */
-    function onStartHostMetaLinks($links)
+    function onStartHostMetaLinks(&$links)
     {
         $url = common_local_url('oexchangexrd');        
-        $links[] = array('rel' => 'http://oexchange.org/spec/0.8/rel/resident-target',
-                       'type' => 'application/xrd+xml',
-                       'href' => $url);
+        $links[] = new XML_XRD_Element_Link('http://oexchange.org/spec/0.8/rel/resident-target',
+                       $url,
+                       'application/xrd+xml');
         return true;
     }
 }
