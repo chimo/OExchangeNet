@@ -42,7 +42,7 @@ class OExchangeXrdAction extends Action
     } else {
       $icon = common_path('plugins/OExchange/images/icon.png');
     }
-    
+
     if (defined('OEXCHANGE_ICON32')) {
       $icon32 = OEXCHANGE_ICON32;
     } else {

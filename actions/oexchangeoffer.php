@@ -31,7 +31,7 @@ class OExchangeOfferAction extends Action
     $this->url = $this->arg('url');
     $this->title = $this->arg('title');
     $this->description = $this->arg('description');
-      
+
     return true;
   }
 
@@ -49,7 +49,7 @@ class OExchangeOfferAction extends Action
 
     $url = common_local_url('newnotice');
     $url .= "?status_textarea=".urlencode('"'.$this->title.'" '.$this->url);
-    
+
     // redirect to "newnotice" page
     common_redirect($url);
   }

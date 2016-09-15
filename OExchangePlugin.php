@@ -34,7 +34,7 @@ class OExchangePlugin extends Plugin
      */
     function onStartHostMetaLinks(&$links)
     {
-        $url = common_local_url('oexchangexrd');        
+        $url = common_local_url('oexchangexrd');
         $links[] = new XML_XRD_Element_Link('http://oexchange.org/spec/0.8/rel/resident-target',
                        $url,
                        'application/xrd+xml');
