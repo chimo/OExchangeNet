@@ -40,31 +40,4 @@ class OExchangePlugin extends Plugin
                        'href' => $url);
         return true;
     }
-
-    /**
-     * Automatically load the actions and libraries used by the plugin
-     *
-     * @param Class $cls the class
-     * @return boolean hook return
-     */
-    function onAutoload($cls)
-    {
-        $base = dirname(__FILE__);
-        $lower = strtolower($cls);
-        
-        if (isset($map[$lower])) {
-            $lower = $map[$lower];
-        }
-        $files = array();
-        if (substr($lower, -6) == 'action') {
-            $files[] = "$base/actions/" . substr($lower, 0, -6) . ".php";
-        }
-        foreach ($files as $file) {
-            if (file_exists($file)) {
-                include_once $file;
-                return false;
-            }
-        }
-        return true;
-    }
 }
