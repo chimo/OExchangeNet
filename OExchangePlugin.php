@@ -40,4 +40,16 @@ class OExchangePlugin extends Plugin
                        'application/xrd+xml');
         return true;
     }
+
+    function onPluginVersion(array &$versions)
+    {
+        $versions[] = array('name' => 'OExchange',
+                            'version' => GNUSOCIAL_VERSION,
+                            'author' => 'pfefferle, chimo',
+                            'homepage' => 'https://code.chromic.org/chimo/gs-OExchange',
+                            'description' =>
+                            // TRANS: Plugin description.
+                            _m('OExchange for GNU social'));
+        return true;
+    }
 }
