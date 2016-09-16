@@ -31,13 +31,13 @@ class OExchangeXrdAction extends XrdAction
     if (defined('OEXCHANGE_ICON')) {
       $this->icon = OEXCHANGE_ICON;
     } else {
-      $this->icon = common_path('plugins/OExchange/images/icon.png');
+      $this->icon = Plugin::staticPath('OExchange', 'images/icon.png');
     }
 
     if (defined('OEXCHANGE_ICON32')) {
       $this->icon32 = OEXCHANGE_ICON32;
     } else {
-      $this->icon32 = common_path('plugins/OExchange/images/icon32.png');
+      $this->icon32 = Plugin::staticPath('OExchange', 'images/icon32.png');
     }
 
     parent::handle();
